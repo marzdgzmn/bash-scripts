@@ -3,7 +3,7 @@
 function usage {
   programName=$0
   echo 'description: post message to a Slack channel'
-  echo "usage: $programName [-t 'sample title'] [-b 'message body'] [-c 'channel'] [-u 'slack url']"
+  echo "usage: $programName [-t 'sample title'] [-b 'message body'] [-u 'slack url']"
   echo '    -t    message title'
   echo '    -b    message body'
   echo '    -u    Slack webhook url'
