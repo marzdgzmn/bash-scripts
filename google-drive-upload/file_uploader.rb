@@ -8,7 +8,7 @@ require 'googleauth/stores/file_token_store'
 require 'fileutils'
 require 'yaml'
 
-BACKUP_FILES='.backup_files.yaml'.freeze
+BACKUP_FILES = '.backup_files.yaml'.freeze
 OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
 APPLICATION_NAME = 'BACKUP UPLOAD'.freeze
 CREDENTIALS_PATH = '.credentials.json'.freeze
@@ -17,7 +17,7 @@ CREDENTIALS_PATH = '.credentials.json'.freeze
 # created automatically when the authorization flow completes for the first
 # time.
 TOKEN_PATH = '.token.yaml'.freeze
-SCOPE = Google::Apis::DriveV3::AUTH_DRIVE_FILE
+SCOPE = Google::Apis::DriveV3::AUTH_DRIVE # _FILE
 
 #
 # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,12 +48,12 @@ drive_service = Google::Apis::DriveV3::DriveService.new
 drive_service.client_options.application_name = APPLICATION_NAME
 drive_service.authorization = authorize
 
-
 # Upload and update the files
 files = YAML.load_file(BACKUP_FILES)
-files.each do |f, details|
-  file = drive_service.update_file(details['file_id'],
-                                   fields: 'id',
-                                   upload_source: details['file_source'],
-                                   content_type: 'application/octet-stream')
+
+files.each do |_f, details|
+  drive_service.update_file(details['file_id'],
+                            fields: 'id',
+                            upload_source: details['file_source'],
+                            content_type: 'application/octet-stream')
 end
